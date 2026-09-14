@@ -23,7 +23,7 @@ export default function Lengua() {
 
   return (
     <div>
-      <h2>Lengua</h2>
+      <h2 className="page-title"><span className="emoji">📚</span> Lengua</h2>
       <div className="tabs">
         <button className={seccion === 'general' ? 'active' : ''} onClick={() => setSeccion('general')}>
           Actividades / Controles / Proyectos

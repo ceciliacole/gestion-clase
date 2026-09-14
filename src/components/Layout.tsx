@@ -1,18 +1,19 @@
 import { NavLink, Outlet } from 'react-router-dom';
 
 const links = [
-  { to: '/', label: 'Panel', end: true },
-  { to: '/alumnos', label: 'Alumnos' },
-  { to: '/cono', label: 'Cono' },
-  { to: '/lengua', label: 'Lengua' },
-  { to: '/clase', label: 'Comportamiento y material' },
+  { to: '/', label: 'Panel', emoji: '🗓️', end: true },
+  { to: '/alumnos', label: 'Alumnos', emoji: '🧑‍🎓' },
+  { to: '/cono', label: 'Cono', emoji: '🌍' },
+  { to: '/lengua', label: 'Lengua', emoji: '📚' },
+  { to: '/clase', label: 'Comportamiento y material', emoji: '⭐' },
 ];
 
 export default function Layout() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
-        <h1 className="brand">Gestión de clase</h1>
+        <h1 className="brand">🎒 Gestión de clase</h1>
+        <p className="brand-tagline">Todo tu cole, en un sitio</p>
         <nav>
           {links.map((l) => (
             <NavLink
@@ -21,6 +22,7 @@ export default function Layout() {
               end={l.end}
               className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}
             >
+              <span className="nav-emoji">{l.emoji}</span>
               {l.label}
             </NavLink>
           ))}

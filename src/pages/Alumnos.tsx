@@ -19,7 +19,7 @@ export default function Alumnos() {
 
   return (
     <div>
-      <h2>Alumnos</h2>
+      <h2 className="page-title"><span className="emoji">🧑‍🎓</span> Alumnos</h2>
 
       <form className="card form-inline" onSubmit={onSubmit}>
         <input

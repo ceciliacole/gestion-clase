@@ -24,7 +24,7 @@ export default function Clase() {
   if (alumnos.length === 0) {
     return (
       <div>
-        <h2>Comportamiento y material</h2>
+        <h2 className="page-title"><span className="emoji">⭐</span> Comportamiento y material</h2>
         <p className="muted">Da de alta alumnos primero en la sección Alumnos.</p>
       </div>
     );
@@ -32,7 +32,7 @@ export default function Clase() {
 
   return (
     <div>
-      <h2>Comportamiento y material</h2>
+      <h2 className="page-title"><span className="emoji">⭐</span> Comportamiento y material</h2>
       <div className="tabs">
         <button
           className={seccion === 'comportamiento' ? 'active' : ''}

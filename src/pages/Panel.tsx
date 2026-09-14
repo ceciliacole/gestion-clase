@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
+import MateriaBadge from '../components/MateriaBadge';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -21,7 +22,7 @@ export default function Panel() {
 
   return (
     <div>
-      <h2>Panel de clase</h2>
+      <h2 className="page-title"><span className="emoji">🗓️</span> Panel de clase</h2>
 
       {alumnos.length === 0 && (
         <div className="card empty-hint">
@@ -32,25 +33,29 @@ export default function Panel() {
 
       <div className="grid-cards">
         <div className="card stat">
+          <div className="stat-emoji">🧑‍🎓</div>
           <div className="stat-num">{alumnos.length}</div>
           <div className="stat-label">Alumnos</div>
         </div>
         <div className="card stat">
+          <div className="stat-emoji">📝</div>
           <div className="stat-num">{pendientes}</div>
           <div className="stat-label">Actividades pendientes</div>
         </div>
         <div className="card stat">
+          <div className="stat-emoji">🎒</div>
           <div className="stat-num">{materialHoy.length}</div>
           <div className="stat-label">Sin material hoy</div>
         </div>
         <div className="card stat">
+          <div className="stat-emoji">⭐</div>
           <div className="stat-num">{incidenciasHoy.length}</div>
           <div className="stat-label">Incidencias hoy</div>
         </div>
       </div>
 
       <div className="card">
-        <h3>Sin material hoy</h3>
+        <h3>🎒 Sin material hoy</h3>
         {materialHoy.length === 0 ? (
           <p className="muted">Nadie registrado sin material hoy.</p>
         ) : (
@@ -63,14 +68,14 @@ export default function Panel() {
       </div>
 
       <div className="card">
-        <h3>Próximos controles</h3>
+        <h3>✏️ Próximos controles</h3>
         {proximosControles.length === 0 ? (
           <p className="muted">No hay controles próximos registrados.</p>
         ) : (
           <ul>
             {proximosControles.map((c) => (
               <li key={c.id}>
-                {c.fecha} — {c.tema} ({c.materia}) — {nombre(c.alumnoId)}
+                <MateriaBadge materia={c.materia} /> {c.fecha} — {c.tema} — {nombre(c.alumnoId)}
               </li>
             ))}
           </ul>
@@ -78,7 +83,7 @@ export default function Panel() {
       </div>
 
       <div className="card">
-        <h3>Incidencias de hoy</h3>
+        <h3>⭐ Incidencias de hoy</h3>
         {incidenciasHoy.length === 0 ? (
           <p className="muted">Sin incidencias hoy.</p>
         ) : (
