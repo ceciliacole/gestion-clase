@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useData } from '../context/DataContext';
 import type { Materia, EstadoActividad } from '../types';
+import Avatar from './Avatar';
+import ProgressBar from './ProgressBar';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -106,7 +108,12 @@ export default function AsignaturaBoard({ materia }: { materia: Materia }) {
               <tbody>
                 {misActividades.map((a) => (
                   <tr key={a.id}>
-                    <td>{nombre(a.alumnoId)}</td>
+                    <td>
+                      <span className="alumno-row">
+                        <Avatar name={nombre(a.alumnoId)} size={24} />
+                        {nombre(a.alumnoId)}
+                      </span>
+                    </td>
                     <td>{a.titulo}</td>
                     <td>{a.fecha}</td>
                     <td>
@@ -204,7 +211,12 @@ export default function AsignaturaBoard({ materia }: { materia: Materia }) {
               <tbody>
                 {misControles.map((c) => (
                   <tr key={c.id}>
-                    <td>{nombre(c.alumnoId)}</td>
+                    <td>
+                      <span className="alumno-row">
+                        <Avatar name={nombre(c.alumnoId)} size={24} />
+                        {nombre(c.alumnoId)}
+                      </span>
+                    </td>
                     <td>{c.tema}</td>
                     <td>{c.fecha}</td>
                     <td>{c.nota ?? '—'}</td>
@@ -256,7 +268,8 @@ export default function AsignaturaBoard({ materia }: { materia: Materia }) {
               misProyectos.map((p) => (
                 <div key={p.id} className="proyecto-item">
                   <div className="proyecto-header">
-                    <strong>
+                    <strong className="alumno-row">
+                      <Avatar name={nombre(p.alumnoId)} size={28} />
                       {p.titulo} — {nombre(p.alumnoId)}
                     </strong>
                     <div>
@@ -281,6 +294,17 @@ export default function AsignaturaBoard({ materia }: { materia: Materia }) {
                       </button>
                     </div>
                   </div>
+                  {p.fases.length > 0 && (
+                    <div className="proyecto-ficha-progress">
+                      <ProgressBar
+                        percent={(p.fases.filter((f) => f.completada).length / p.fases.length) * 100}
+                        color={materia === 'cono' ? 'var(--cono)' : 'var(--lengua)'}
+                      />
+                      <span className="muted">
+                        {p.fases.filter((f) => f.completada).length}/{p.fases.length}
+                      </span>
+                    </div>
+                  )}
                   <FaseForm
                     onAdd={(titulo) =>
                       updateProyecto(p.id, {

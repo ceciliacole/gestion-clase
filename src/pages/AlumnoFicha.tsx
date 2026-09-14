@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import Sparkline from '../components/Sparkline';
 import MateriaBadge from '../components/MateriaBadge';
+import Avatar from '../components/Avatar';
+import ProgressBar from '../components/ProgressBar';
 
 export default function AlumnoFicha() {
   const { id } = useParams();
@@ -43,8 +45,13 @@ export default function AlumnoFicha() {
       <p>
         <Link to="/alumnos">← Alumnos</Link>
       </p>
-      <h2 className="page-title"><span className="emoji">🙋</span> {alumno.nombre}</h2>
-      <p className="muted">{alumno.grupo}</p>
+      <div className="ficha-header">
+        <Avatar name={alumno.nombre} size={64} />
+        <div>
+          <h2 className="page-title">{alumno.nombre}</h2>
+          <p className="muted">{alumno.grupo}</p>
+        </div>
+      </div>
 
       <div className="grid-cards">
         <div className="card stat">
@@ -127,10 +134,23 @@ export default function AlumnoFicha() {
           <ul>
             {misProyectos.map((p) => (
               <li key={p.id}>
-                <MateriaBadge materia={p.materia} /> {p.titulo}
-                {p.notaFinal !== undefined ? ` — nota final: ${p.notaFinal}` : ''}
-                {' — '}
-                {p.fases.filter((f) => f.completada).length}/{p.fases.length} fases completadas
+                <div className="proyecto-ficha-row">
+                  <span>
+                    <MateriaBadge materia={p.materia} /> {p.titulo}
+                    {p.notaFinal !== undefined ? ` — nota final: ${p.notaFinal}` : ''}
+                  </span>
+                  {p.fases.length > 0 && (
+                    <div className="proyecto-ficha-progress">
+                      <ProgressBar
+                        percent={(p.fases.filter((f) => f.completada).length / p.fases.length) * 100}
+                        color={p.materia === 'cono' ? 'var(--cono)' : 'var(--lengua)'}
+                      />
+                      <span className="muted">
+                        {p.fases.filter((f) => f.completada).length}/{p.fases.length}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </li>
             ))}
           </ul>

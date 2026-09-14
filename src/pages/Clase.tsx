@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useData } from '../context/DataContext';
 import type { TipoIncidencia } from '../types';
+import Avatar from '../components/Avatar';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -103,7 +104,12 @@ export default function Clase() {
                   .map((i) => (
                     <tr key={i.id} className={i.tipo === 'positiva' ? 'positiva' : 'negativa'}>
                       <td>{i.fecha}</td>
-                      <td>{nombre(i.alumnoId)}</td>
+                      <td>
+                        <span className="alumno-row">
+                          <Avatar name={nombre(i.alumnoId)} size={24} />
+                          {nombre(i.alumnoId)}
+                        </span>
+                      </td>
                       <td>{i.descripcion}</td>
                       <td>{i.puntos > 0 ? '+' : ''}{i.puntos}</td>
                       <td className="col-actions">
@@ -163,7 +169,12 @@ export default function Clase() {
                   .map((m) => (
                     <tr key={m.id}>
                       <td>{m.fecha}</td>
-                      <td>{nombre(m.alumnoId)}</td>
+                      <td>
+                        <span className="alumno-row">
+                          <Avatar name={nombre(m.alumnoId)} size={24} />
+                          {nombre(m.alumnoId)}
+                        </span>
+                      </td>
                       <td>{m.faltante}</td>
                       <td className="col-actions">
                         <button className="link-btn danger" onClick={() => removeMaterial(m.id)}>

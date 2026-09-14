@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
+import Avatar from '../components/Avatar';
 
 export default function Alumnos() {
   const { alumnos, addAlumno, removeAlumno } = useData();
@@ -47,7 +48,7 @@ export default function Alumnos() {
 
       {grupos.map((g) => (
         <div className="card" key={g}>
-          <h3>{g}</h3>
+          <h3>🏷️ {g}</h3>
           <table>
             <tbody>
               {alumnos
@@ -55,7 +56,10 @@ export default function Alumnos() {
                 .map((a) => (
                   <tr key={a.id}>
                     <td>
-                      <Link to={`/alumnos/${a.id}`}>{a.nombre}</Link>
+                      <Link to={`/alumnos/${a.id}`} className="alumno-row">
+                        <Avatar name={a.nombre} />
+                        {a.nombre}
+                      </Link>
                     </td>
                     <td className="col-actions">
                       <button className="link-btn danger" onClick={() => removeAlumno(a.id)}>

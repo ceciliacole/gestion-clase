@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import MateriaBadge from '../components/MateriaBadge';
+import Avatar from '../components/Avatar';
+import RankingBars from '../components/RankingBars';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -19,6 +21,16 @@ export default function Panel() {
   const pendientes = actividades.filter((a) => a.estado === 'pendiente').length;
 
   const nombre = (id: string) => alumnos.find((a) => a.id === id)?.nombre ?? '—';
+
+  const ranking = alumnos
+    .map((a) => ({
+      id: a.id,
+      nombre: a.nombre,
+      valor: incidencias.filter((i) => i.alumnoId === a.id).reduce((sum, i) => sum + i.puntos, 0),
+    }))
+    .filter((r) => r.valor !== 0)
+    .sort((a, b) => b.valor - a.valor)
+    .slice(0, 6);
 
   return (
     <div>
@@ -55,13 +67,20 @@ export default function Panel() {
       </div>
 
       <div className="card">
+        <h3>🏆 Ranking de comportamiento</h3>
+        <RankingBars items={ranking} />
+      </div>
+
+      <div className="card">
         <h3>🎒 Sin material hoy</h3>
         {materialHoy.length === 0 ? (
           <p className="muted">Nadie registrado sin material hoy.</p>
         ) : (
           <ul>
             {materialHoy.map((m) => (
-              <li key={m.id}>{nombre(m.alumnoId)} — {m.faltante}</li>
+              <li key={m.id}>
+                <Avatar name={nombre(m.alumnoId)} size={28} /> {nombre(m.alumnoId)} — {m.faltante}
+              </li>
             ))}
           </ul>
         )}
@@ -89,8 +108,11 @@ export default function Panel() {
         ) : (
           <ul>
             {incidenciasHoy.map((i) => (
-              <li key={i.id} className={i.tipo === 'positiva' ? 'positiva' : 'negativa'}>
-                {nombre(i.alumnoId)} — {i.descripcion} ({i.puntos > 0 ? '+' : ''}{i.puntos})
+              <li key={i.id}>
+                <Avatar name={nombre(i.alumnoId)} size={28} />
+                <span className={i.tipo === 'positiva' ? 'positiva' : 'negativa'}>
+                  {nombre(i.alumnoId)} — {i.descripcion} ({i.puntos > 0 ? '+' : ''}{i.puntos})
+                </span>
               </li>
             ))}
           </ul>

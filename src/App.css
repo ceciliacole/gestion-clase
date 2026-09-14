@@ -68,6 +68,11 @@
   flex: 1;
   padding: 32px 36px 64px;
   max-width: 1000px;
+  background:
+    radial-gradient(420px 260px at 92% -8%, var(--lengua-soft), transparent 70%),
+    radial-gradient(360px 240px at 100% 30%, var(--cono-soft), transparent 70%),
+    radial-gradient(320px 220px at -6% 85%, var(--accent-soft), transparent 70%);
+  background-repeat: no-repeat;
 }
 
 .page-title {
@@ -334,6 +339,130 @@ tr.positiva, tr.negativa {
 .badge-lengua {
   background: var(--lengua-soft);
   color: var(--lengua);
+}
+
+.ficha-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.ficha-header .page-title {
+  margin-bottom: 2px;
+}
+
+.proyecto-ficha-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.proyecto-ficha-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.proyecto-ficha-progress .progress-track {
+  flex: 1;
+}
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+  font-family: var(--heading);
+  font-weight: 700;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.alumno-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-h);
+  font-weight: 700;
+}
+
+.alumno-row:hover {
+  color: var(--accent);
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--hover);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ranking-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ranking-name {
+  width: 90px;
+  flex-shrink: 0;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-track {
+  flex: 1;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--hover);
+  overflow: hidden;
+}
+
+.ranking-fill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.ranking-fill.positiva-fill {
+  background: linear-gradient(90deg, var(--success), #5be0a8);
+}
+
+.ranking-fill.negativa-fill {
+  background: linear-gradient(90deg, var(--danger), #ff9a9d);
+}
+
+.ranking-value {
+  width: 36px;
+  text-align: right;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.sparkline-label {
+  font-family: var(--heading);
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--accent);
 }
 
 .card ul {

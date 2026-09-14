@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useData } from '../context/DataContext';
 import AsignaturaBoard from '../components/AsignaturaBoard';
+import Avatar from '../components/Avatar';
 
 function hoy(): string {
   return new Date().toISOString().slice(0, 10);
@@ -81,7 +82,12 @@ export default function Lengua() {
                   <tbody>
                     {lecturas.map((l) => (
                       <tr key={l.id}>
-                        <td>{nombre(l.alumnoId)}</td>
+                        <td>
+                          <span className="alumno-row">
+                            <Avatar name={nombre(l.alumnoId)} size={24} />
+                            {nombre(l.alumnoId)}
+                          </span>
+                        </td>
                         <td>{l.libro}</td>
                         <td>{l.fechaInicio}</td>
                         <td>
@@ -173,7 +179,12 @@ export default function Lengua() {
                       .sort((a, b) => b.fecha.localeCompare(a.fecha))
                       .map((v) => (
                         <tr key={v.id}>
-                          <td>{nombre(v.alumnoId)}</td>
+                          <td>
+                            <span className="alumno-row">
+                              <Avatar name={nombre(v.alumnoId)} size={24} />
+                              {nombre(v.alumnoId)}
+                            </span>
+                          </td>
                           <td>{v.fecha}</td>
                           <td>{v.palabrasPorMinuto}</td>
                           <td className="col-actions">
